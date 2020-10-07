@@ -33,7 +33,8 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'home',
     'dashboard',
-'management',
+    'management',
+    'django_tables2',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -118,12 +119,20 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
+DJANGO_TABLES2_TEMPLATE = 'django_tables2/bootstrap4.html'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+REPOSITORY_ROOT = os.path.dirname(BASE_DIR)
+
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(REPOSITORY_ROOT, 'static/')
+
+MEDIA_URL = '/media/uploads/'
+MEDIA_ROOT = os.path.join(REPOSITORY_ROOT, 'media/uploads/')
+
 
 CELERY_RESULT_BACKEND = 'amqp://guest@localhost//'
 BROKER_URL = 'amqp://chief:hourglass84@localhost/server'

@@ -279,7 +279,7 @@
                                 <div class="icon">
                                     <i class="ion ion-stats-bars"></i>
                                 </div>
-                                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="{% url 'view_assets' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
@@ -318,7 +318,16 @@
                 </div>
                 <!-- /.container-fluid -->
             </section>
-            {% block content %} {% endblock %}
+            {% if messages %}
+            <ul class="messages ">
+                {% for message in messages %}
+                <ol class="breadcrumb ">
+                    <li{% if message.tags %} class="{{ message.tags }} " {% endif %}><strong>{{ message }} {{form.errors}}</strong>
+                        </li>
+                </ol>
+                {% endfor %}
+            </ul>
+            {% endif %} {% block content %} {% endblock %}
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
