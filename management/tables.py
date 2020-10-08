@@ -9,6 +9,11 @@ from .models import Asset, Attachments
 
 
 class AssetTable(tables.Table):
+    edit = tables.LinkColumn('edit', args=[A('pk')], verbose_name="Edit Record", orderable=False, empty_values=())
+
+    def render_edit(self, record):
+        return format_html('<a href='+reverse("edit", args=[record.pk])+'><input class="btn btn-info btn-sm btn-block" type="Submit" id="button1" value="Edit" /></a>')
+
     class Meta:
         model = Asset
-        fields = ('asset_code', 'name', 'user', 'purchase_date','cost','description')
+        fields = ('asset_code', 'name', 'user', 'purchase_date','cost','description','edit')
