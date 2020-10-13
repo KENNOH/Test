@@ -6,6 +6,8 @@ from .models import Asset, Attachments
 from .tables import AssetTable
 from django_tables2 import RequestConfig
 from django.utils import timezone
+import os
+from home.tasks import delete_asset
 # Create your views here.
 
 
@@ -72,5 +74,15 @@ def edit(request,pk):
         return render(request, 'management/add_asset.html', args)
 
 
-def delete(request):
-    pass
+def delete(request,pk):
+    if Asset.objects.filter(pk=pk).exists():
+        delete_asset.delay(pk)
+        messages.info(request, 'Success, instance deleted!.')
+        return redirect('view_assets')
+    else:
+        messages.error(request, 'This record does not exist.')
+        return redirect('view_assets')
+
+
+
+
